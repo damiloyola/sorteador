@@ -22,6 +22,11 @@ var onDeleteAll = function onDeleteAll() {
     app.options = [];
     renderTemplate();
 };
+var onPick = function onPick() {
+    var num = Math.floor(Math.random() * app.options.length);
+    var option = app.options[num];
+    alert(option);
+};
 
 var appRoot = document.getElementById('app');
 
@@ -50,10 +55,15 @@ var renderTemplate = function renderTemplate() {
             app.options.map(function (item) {
                 return React.createElement(
                     'li',
-                    { key: '{item}' },
+                    { key: item },
                     item
                 );
             })
+        ),
+        React.createElement(
+            'button',
+            { disabled: app.options.length === 0, onClick: onPick },
+            'Elegir al azar'
         ),
         app.options.length > 0 && React.createElement(
             'button',

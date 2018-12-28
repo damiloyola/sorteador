@@ -22,6 +22,11 @@ const onDeleteAll = () =>{
     app.options = [];
     renderTemplate();
 }
+const onPick = () => {
+    const num = Math.floor(Math.random()*app.options.length);
+    const option = app.options[num];
+    alert(option);
+}
 
 const appRoot = document.getElementById('app');
 
@@ -32,9 +37,10 @@ const renderTemplate = ()=> {
             {app.subtitle && <p>{app.subtitle}</p>}
             <p>{app.options.length > 0 ? 'Opciones: ' : 'Agrega una opcion'}</p>
             <ol>
-                {app.options.map((item)=> <li key="{item}">{item}</li>)}
+                {app.options.map((item)=> <li key={item}>{item}</li>)}
             </ol>
-            {app.options.length > 0 && <button onClick = {onDeleteAll}>Borrar Todos</button>}
+           <button disabled= {app.options.length === 0} onClick = {onPick}>Elegir al azar</button>
+           {app.options.length > 0 && <button onClick = {onDeleteAll}>Borrar Todos</button>}
             <form onSubmit= {onFormSubmit}>
                 <input type = 'text' name= 'option'></input>
                 <button>Agregar</button>
