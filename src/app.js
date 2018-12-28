@@ -32,7 +32,7 @@ const renderTemplate = ()=> {
             {app.subtitle && <p>{app.subtitle}</p>}
             <p>{app.options.length > 0 ? 'Opciones: ' : 'Agrega una opcion'}</p>
             <ol>
-                {app.options.length}
+                {app.options.map((item)=> <li key="{item}">{item}</li>)}
             </ol>
             {app.options.length > 0 && <button onClick = {onDeleteAll}>Borrar Todos</button>}
             <form onSubmit= {onFormSubmit}>

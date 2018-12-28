@@ -47,7 +47,13 @@ var renderTemplate = function renderTemplate() {
         React.createElement(
             'ol',
             null,
-            app.options.length
+            app.options.map(function (item) {
+                return React.createElement(
+                    'li',
+                    { key: '{item}' },
+                    item
+                );
+            })
         ),
         app.options.length > 0 && React.createElement(
             'button',
