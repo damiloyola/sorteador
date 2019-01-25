@@ -1,56 +1,51 @@
 
-
-const app = {
-    title: 'Sorteador',
-    subtitle:'',
-    options:[]
-}
-
-const onFormSubmit = (e) =>{
-    e.preventDefault();
-
-    const option= e.target.elements.option.value;
-    
-    if(option){
-        app.options.push(option);
-        e.target.elements.option.value = '';
-        renderTemplate();
+class Header extends React.Component {
+    render(){
+        return (
+            <div>
+                <h1>Sorteador</h1>
+                <h2>Deja el azar en manos de la inteligencia artificial</h2>
+            </div>
+        );
     }
 }
 
-const onDeleteAll = () =>{
-    app.options = [];
-    renderTemplate();
+class Action extends React.Component{
+    render(){
+        return(
+            <div>
+                <button>Sortear!</button>
+            </div>
+        );
+    }
 }
-const onPick = () => {
-    const num = Math.floor(Math.random()*app.options.length);
-    const option = app.options[num];
-    alert(option);
+
+class Options extends React.Component{
+    render(){
+        return(
+            <div>
+                
+            </div>
+        );
+    }
 }
 
-const appRoot = document.getElementById('app');
+class AddOptions extends React.Component{
+    render(){
+        return(
+            <div>
 
-const renderTemplate = ()=> {
-    const template = (
-        <div> 
-            <h1>{app.title}</h1>
-            {app.subtitle && <p>{app.subtitle}</p>}
-            <p>{app.options.length > 0 ? 'Opciones: ' : 'Agrega una opcion'}</p>
-            <ol>
-                {app.options.map((item)=> <li key={item}>{item}</li>)}
-            </ol>
-           <button disabled= {app.options.length === 0} onClick = {onPick}>Elegir al azar</button>
-           {app.options.length > 0 && <button onClick = {onDeleteAll}>Borrar Todos</button>}
-            <form onSubmit= {onFormSubmit}>
-                <input type = 'text' name= 'option'></input>
-                <button>Agregar</button>
-            
-            </form>
-        </div>
-    );
-
-
-    ReactDOM.render(template,appRoot);
-            
+            </div>
+        );
+    }
 }
-renderTemplate();
+
+
+const jsx = (
+    <div>
+        <Header />
+        <Action />
+    </div>
+);
+
+ReactDOM.render(jsx, document.getElementById('app'));
