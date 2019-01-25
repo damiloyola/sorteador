@@ -1,56 +1,97 @@
 
+class Sorteador extends React.Component {
+    render(){
+        const title = 'Sorteador';
+        const subtitle = 'Elije un ganador al azar!';
+        const options = ['opcion 1', 'opcion 2', 'opcion 3'];
 
-const app = {
-    title: 'Sorteador',
-    subtitle:'',
-    options:[]
-}
-
-const onFormSubmit = (e) =>{
-    e.preventDefault();
-
-    const option= e.target.elements.option.value;
-    
-    if(option){
-        app.options.push(option);
-        e.target.elements.option.value = '';
-        renderTemplate();
+        return(
+            <div>
+            <Header title={title} subtitle ={subtitle}/>
+            <Action/>
+            <Options options = {options}/>
+            <AddOptions />
+            </div>
+            
+        )
     }
 }
 
-const onDeleteAll = () =>{
-    app.options = [];
-    renderTemplate();
+
+class Header extends React.Component {
+    render(){
+        return (
+            <div>
+                <h1>{this.props.title}</h1>
+                <h2>{this.props.subtitle}</h2>
+            </div>
+        );
+    }
 }
-const onPick = () => {
-    const num = Math.floor(Math.random()*app.options.length);
-    const option = app.options[num];
-    alert(option);
+
+class Action extends React.Component{
+    handleSort(){
+        console.log('sorteando')
+    }
+    render(){
+        return(
+            <div>
+                <button onClick={this.handleSort}>Sortear!</button>
+            </div>
+        );
+    }
 }
 
-const appRoot = document.getElementById('app');
-
-const renderTemplate = ()=> {
-    const template = (
-        <div> 
-            <h1>{app.title}</h1>
-            {app.subtitle && <p>{app.subtitle}</p>}
-            <p>{app.options.length > 0 ? 'Opciones: ' : 'Agrega una opcion'}</p>
-            <ol>
-                {app.options.map((item)=> <li key={item}>{item}</li>)}
-            </ol>
-           <button disabled= {app.options.length === 0} onClick = {onPick}>Elegir al azar</button>
-           {app.options.length > 0 && <button onClick = {onDeleteAll}>Borrar Todos</button>}
-            <form onSubmit= {onFormSubmit}>
-                <input type = 'text' name= 'option'></input>
-                <button>Agregar</button>
-            
-            </form>
-        </div>
-    );
-
-
-    ReactDOM.render(template,appRoot);
-            
+class Options extends React.Component{
+   handleDel(){
+       console.log('borrando')
+   }
+    render(){
+        return(
+            <div>
+                <button onClick={this.handleDel}>Borrar Todos</button>
+                {this.props.options.map(op => <Option key={op} option={op}/>)}
+            </div>
+        );
+    }
 }
-renderTemplate();
+
+class Option extends React.Component{
+    render(){
+        return(
+            <div>
+                <li>
+                    {this.props.option}
+                </li>  
+            </div>
+        )
+    }
+}
+
+class AddOptions extends React.Component{
+    handleAdd(e){
+        e.preventDefault();
+
+        const option = e.target.elements.option.value.trim();
+
+        if(option){
+            console.log('add value')
+        }
+    }
+
+    render(){
+        return(
+            <div>
+                <form onSubmit={this.handleAdd}>
+                    <input type='text' name='option'></input>
+                    <button type='submit'>Agregar</button>
+                </form>
+            </div>
+        );
+    }
+}
+
+
+
+
+ReactDOM.render(<Sorteador/>, document.getElementById('app'));
