@@ -1,12 +1,12 @@
 
-<<<<<<< HEAD
 class Sorteador extends React.Component {
     constructor(props){
         super(props);
         this.handleDelete = this.handleDelete.bind(this);
         this.handleSort = this.handleSort.bind(this);
+        this.handleAddOption = this.handleAddOption.bind(this);
         this.state = {
-            options : ['opcion 1', 'opcion 2', 'opcion 3']
+            options : []
         }
     }
 
@@ -24,6 +24,19 @@ class Sorteador extends React.Component {
      alert(option);
     }
 
+    handleAddOption(option){
+        if(!option){
+            return 'Ingrese una opcion valida';
+        }else if(this.state.options.indexOf(option) > -1){
+            return 'Esa opcion ya existe';
+        }
+
+        this.setState((prevState)=>{
+            return({
+                options: prevState.options.concat(option)
+            })
+        })
+    }
     render(){
         const title = 'Sorteador';
         const subtitle = 'Elije un ganador al azar!';
@@ -34,7 +47,7 @@ class Sorteador extends React.Component {
             <Header title={title} subtitle ={subtitle}/>
             <Action hasOption= {this.state.options.length > 0} handleSort ={this.handleSort}/>
             <Options options = {this.state.options} handleDelete = {this.handleDelete}/>
-            <AddOptions />
+            <AddOptions handleAddOption = {this.handleAddOption}/>
             </div>
             
         )
@@ -48,30 +61,11 @@ class Header extends React.Component {
             <div>
                 <h1>{this.props.title}</h1>
                 <h2>{this.props.subtitle}</h2>
-=======
-class Header extends React.Component {
-    render(){
-        return (
-            <div>
-                <h1>Sorteador</h1>
-                <h2>Deja el azar en manos de la inteligencia artificial</h2>
             </div>
         );
     }
 }
 
-class Action extends React.Component{
-    render(){
-        return(
-            <div>
-                <button>Sortear!</button>
->>>>>>> ad90da89d95bb323996f64b7ba719df3e4dd4dcd
-            </div>
-        );
-    }
-}
-
-<<<<<<< HEAD
 class Action extends React.Component{
    
     render(){
@@ -90,19 +84,11 @@ class Options extends React.Component{
             <div>
                 <button onClick={this.props.handleDelete}>Borrar Todos</button>
                 {this.props.options.map(op => <Option key={op} option={op}/>)}
-=======
-class Options extends React.Component{
-    render(){
-        return(
-            <div>
-                
->>>>>>> ad90da89d95bb323996f64b7ba719df3e4dd4dcd
             </div>
         );
     }
 }
 
-<<<<<<< HEAD
 class Option extends React.Component{
     render(){
         return(
@@ -116,47 +102,38 @@ class Option extends React.Component{
 }
 
 class AddOptions extends React.Component{
+    constructor(props){
+        super(props);
+        this.handleAdd = this.handleAdd.bind(this);
+        this.state = {
+            error: undefined
+        }
+    }
     handleAdd(e){
         e.preventDefault();
 
         const option = e.target.elements.option.value.trim();
+        const error = this.props.handleAddOption(option);
+        this.setState(()=>{
+            return{error: error}
+        })
 
-        if(option){
-            console.log('add value')
-        }
     }
 
     render(){
         return(
             <div>
+                {this.state.error && <p>{this.state.error}</p>}
                 <form onSubmit={this.handleAdd}>
                     <input type='text' name='option'></input>
                     <button type='submit'>Agregar</button>
                 </form>
-=======
-class AddOptions extends React.Component{
-    render(){
-        return(
-            <div>
-
->>>>>>> ad90da89d95bb323996f64b7ba719df3e4dd4dcd
             </div>
         );
     }
 }
 
 
-<<<<<<< HEAD
 
 
 ReactDOM.render(<Sorteador/>, document.getElementById('app'));
-=======
-const jsx = (
-    <div>
-        <Header />
-        <Action />
-    </div>
-);
-
-ReactDOM.render(jsx, document.getElementById('app'));
->>>>>>> ad90da89d95bb323996f64b7ba719df3e4dd4dcd

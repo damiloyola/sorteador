@@ -8,7 +8,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-<<<<<<< HEAD
 var Sorteador = function (_React$Component) {
     _inherits(Sorteador, _React$Component);
 
@@ -19,8 +18,9 @@ var Sorteador = function (_React$Component) {
 
         _this.handleDelete = _this.handleDelete.bind(_this);
         _this.handleSort = _this.handleSort.bind(_this);
+        _this.handleAddOption = _this.handleAddOption.bind(_this);
         _this.state = {
-            options: ['opcion 1', 'opcion 2', 'opcion 3']
+            options: []
         };
         return _this;
     }
@@ -42,6 +42,21 @@ var Sorteador = function (_React$Component) {
             alert(option);
         }
     }, {
+        key: 'handleAddOption',
+        value: function handleAddOption(option) {
+            if (!option) {
+                return 'Ingrese una opcion valida';
+            } else if (this.state.options.indexOf(option) > -1) {
+                return 'Esa opcion ya existe';
+            }
+
+            this.setState(function (prevState) {
+                return {
+                    options: prevState.options.concat(option)
+                };
+            });
+        }
+    }, {
         key: 'render',
         value: function render() {
             var title = 'Sorteador';
@@ -53,7 +68,7 @@ var Sorteador = function (_React$Component) {
                 React.createElement(Header, { title: title, subtitle: subtitle }),
                 React.createElement(Action, { hasOption: this.state.options.length > 0, handleSort: this.handleSort }),
                 React.createElement(Options, { options: this.state.options, handleDelete: this.handleDelete }),
-                React.createElement(AddOptions, null)
+                React.createElement(AddOptions, { handleAddOption: this.handleAddOption })
             );
         }
     }]);
@@ -63,10 +78,6 @@ var Sorteador = function (_React$Component) {
 
 var Header = function (_React$Component2) {
     _inherits(Header, _React$Component2);
-=======
-var Header = function (_React$Component) {
-    _inherits(Header, _React$Component);
->>>>>>> ad90da89d95bb323996f64b7ba719df3e4dd4dcd
 
     function Header() {
         _classCallCheck(this, Header);
@@ -79,7 +90,6 @@ var Header = function (_React$Component) {
         value: function render() {
             return React.createElement(
                 'div',
-<<<<<<< HEAD
                 null,
                 React.createElement(
                     'h1',
@@ -185,10 +195,16 @@ var Option = function (_React$Component5) {
 var AddOptions = function (_React$Component6) {
     _inherits(AddOptions, _React$Component6);
 
-    function AddOptions() {
+    function AddOptions(props) {
         _classCallCheck(this, AddOptions);
 
-        return _possibleConstructorReturn(this, (AddOptions.__proto__ || Object.getPrototypeOf(AddOptions)).apply(this, arguments));
+        var _this6 = _possibleConstructorReturn(this, (AddOptions.__proto__ || Object.getPrototypeOf(AddOptions)).call(this, props));
+
+        _this6.handleAdd = _this6.handleAdd.bind(_this6);
+        _this6.state = {
+            error: undefined
+        };
+        return _this6;
     }
 
     _createClass(AddOptions, [{
@@ -197,10 +213,10 @@ var AddOptions = function (_React$Component6) {
             e.preventDefault();
 
             var option = e.target.elements.option.value.trim();
-
-            if (option) {
-                console.log('add value');
-            }
+            var error = this.props.handleAddOption(option);
+            this.setState(function () {
+                return { error: error };
+            });
         }
     }, {
         key: 'render',
@@ -208,6 +224,11 @@ var AddOptions = function (_React$Component6) {
             return React.createElement(
                 'div',
                 null,
+                this.state.error && React.createElement(
+                    'p',
+                    null,
+                    this.state.error
+                ),
                 React.createElement(
                     'form',
                     { onSubmit: this.handleAdd },
@@ -217,103 +238,12 @@ var AddOptions = function (_React$Component6) {
                         { type: 'submit' },
                         'Agregar'
                     )
-=======
-                null,
-                React.createElement(
-                    'h1',
-                    null,
-                    'Sorteador'
-                ),
-                React.createElement(
-                    'h2',
-                    null,
-                    'Deja el azar en manos de la inteligencia artificial'
->>>>>>> ad90da89d95bb323996f64b7ba719df3e4dd4dcd
                 )
             );
-        }
-    }]);
-
-<<<<<<< HEAD
-    return AddOptions;
-}(React.Component);
-
-ReactDOM.render(React.createElement(Sorteador, null), document.getElementById('app'));
-=======
-    return Header;
-}(React.Component);
-
-var Action = function (_React$Component2) {
-    _inherits(Action, _React$Component2);
-
-    function Action() {
-        _classCallCheck(this, Action);
-
-        return _possibleConstructorReturn(this, (Action.__proto__ || Object.getPrototypeOf(Action)).apply(this, arguments));
-    }
-
-    _createClass(Action, [{
-        key: 'render',
-        value: function render() {
-            return React.createElement(
-                'div',
-                null,
-                React.createElement(
-                    'button',
-                    null,
-                    'Sortear!'
-                )
-            );
-        }
-    }]);
-
-    return Action;
-}(React.Component);
-
-var Options = function (_React$Component3) {
-    _inherits(Options, _React$Component3);
-
-    function Options() {
-        _classCallCheck(this, Options);
-
-        return _possibleConstructorReturn(this, (Options.__proto__ || Object.getPrototypeOf(Options)).apply(this, arguments));
-    }
-
-    _createClass(Options, [{
-        key: 'render',
-        value: function render() {
-            return React.createElement('div', null);
-        }
-    }]);
-
-    return Options;
-}(React.Component);
-
-var AddOptions = function (_React$Component4) {
-    _inherits(AddOptions, _React$Component4);
-
-    function AddOptions() {
-        _classCallCheck(this, AddOptions);
-
-        return _possibleConstructorReturn(this, (AddOptions.__proto__ || Object.getPrototypeOf(AddOptions)).apply(this, arguments));
-    }
-
-    _createClass(AddOptions, [{
-        key: 'render',
-        value: function render() {
-            return React.createElement('div', null);
         }
     }]);
 
     return AddOptions;
 }(React.Component);
 
-var jsx = React.createElement(
-    'div',
-    null,
-    React.createElement(Header, null),
-    React.createElement(Action, null)
-);
-
-ReactDOM.render(jsx, document.getElementById('app'));
->>>>>>> ad90da89d95bb323996f64b7ba719df3e4dd4dcd
+ReactDOM.render(React.createElement(Sorteador, null), document.getElementById('app'));
