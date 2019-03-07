@@ -45,9 +45,9 @@ class Sorteador extends React.Component {
         return(
             <div>
             <Header title={title} subtitle ={subtitle}/>
-            <Action hasOption= {this.state.options.length > 0} handleSort ={this.handleSort}/>
-            <Options options = {this.state.options} handleDelete = {this.handleDelete}/>
+            <Options options = {this.state.options} />
             <AddOptions handleAddOption = {this.handleAddOption}/>
+            <Action hasOption= {this.state.options.length > 0} handleSort ={this.handleSort} handleDelete = {this.handleDelete}/>
             </div>
             
         )
@@ -72,6 +72,7 @@ class Action extends React.Component{
         return(
             <div>
                 <button onClick={this.props.handleSort} disabled = {!this.props.hasOption}>Sortear!</button>
+                <button onClick={this.props.handleDelete}>Borrar Todos</button>
             </div>
         );
     }
@@ -82,7 +83,6 @@ class Options extends React.Component{
     render(){
         return(
             <div>
-                <button onClick={this.props.handleDelete}>Borrar Todos</button>
                 {this.props.options.map(op => <Option key={op} option={op}/>)}
             </div>
         );
@@ -113,6 +113,7 @@ class AddOptions extends React.Component{
         e.preventDefault();
 
         const option = e.target.elements.option.value.trim();
+        e.target.elements.option.value = '';
         const error = this.props.handleAddOption(option);
         this.setState(()=>{
             return{error: error}

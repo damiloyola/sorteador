@@ -66,9 +66,9 @@ var Sorteador = function (_React$Component) {
                 'div',
                 null,
                 React.createElement(Header, { title: title, subtitle: subtitle }),
-                React.createElement(Action, { hasOption: this.state.options.length > 0, handleSort: this.handleSort }),
-                React.createElement(Options, { options: this.state.options, handleDelete: this.handleDelete }),
-                React.createElement(AddOptions, { handleAddOption: this.handleAddOption })
+                React.createElement(Options, { options: this.state.options }),
+                React.createElement(AddOptions, { handleAddOption: this.handleAddOption }),
+                React.createElement(Action, { hasOption: this.state.options.length > 0, handleSort: this.handleSort, handleDelete: this.handleDelete })
             );
         }
     }]);
@@ -127,6 +127,11 @@ var Action = function (_React$Component3) {
                     'button',
                     { onClick: this.props.handleSort, disabled: !this.props.hasOption },
                     'Sortear!'
+                ),
+                React.createElement(
+                    'button',
+                    { onClick: this.props.handleDelete },
+                    'Borrar Todos'
                 )
             );
         }
@@ -150,11 +155,6 @@ var Options = function (_React$Component4) {
             return React.createElement(
                 'div',
                 null,
-                React.createElement(
-                    'button',
-                    { onClick: this.props.handleDelete },
-                    'Borrar Todos'
-                ),
                 this.props.options.map(function (op) {
                     return React.createElement(Option, { key: op, option: op });
                 })
@@ -213,6 +213,7 @@ var AddOptions = function (_React$Component6) {
             e.preventDefault();
 
             var option = e.target.elements.option.value.trim();
+            e.target.elements.option.value = '';
             var error = this.props.handleAddOption(option);
             this.setState(function () {
                 return { error: error };
