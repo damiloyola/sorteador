@@ -1,15 +1,38 @@
 
 class Sorteador extends React.Component {
+    constructor(props){
+        super(props);
+        this.handleDelete = this.handleDelete.bind(this);
+        this.handleSort = this.handleSort.bind(this);
+        this.state = {
+            options : ['opcion 1', 'opcion 2', 'opcion 3']
+        }
+    }
+
+    handleDelete(){
+        this.setState(()=>{
+            return {
+                options:[]
+            }
+        })
+    }
+
+    handleSort(){
+     const randNum = Math.floor(Math.random()* this.state.options.length);
+     const option = this.state.options[randNum];
+     alert(option);
+    }
+
     render(){
         const title = 'Sorteador';
         const subtitle = 'Elije un ganador al azar!';
-        const options = ['opcion 1', 'opcion 2', 'opcion 3'];
+        
 
         return(
             <div>
             <Header title={title} subtitle ={subtitle}/>
-            <Action/>
-            <Options options = {options}/>
+            <Action hasOption= {this.state.options.length > 0} handleSort ={this.handleSort}/>
+            <Options options = {this.state.options} handleDelete = {this.handleDelete}/>
             <AddOptions />
             </div>
             
@@ -30,26 +53,22 @@ class Header extends React.Component {
 }
 
 class Action extends React.Component{
-    handleSort(){
-        console.log('sorteando')
-    }
+   
     render(){
         return(
             <div>
-                <button onClick={this.handleSort}>Sortear!</button>
+                <button onClick={this.props.handleSort} disabled = {!this.props.hasOption}>Sortear!</button>
             </div>
         );
     }
 }
 
 class Options extends React.Component{
-   handleDel(){
-       console.log('borrando')
-   }
+  
     render(){
         return(
             <div>
-                <button onClick={this.handleDel}>Borrar Todos</button>
+                <button onClick={this.props.handleDelete}>Borrar Todos</button>
                 {this.props.options.map(op => <Option key={op} option={op}/>)}
             </div>
         );

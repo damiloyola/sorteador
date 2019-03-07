@@ -11,25 +11,47 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Sorteador = function (_React$Component) {
     _inherits(Sorteador, _React$Component);
 
-    function Sorteador() {
+    function Sorteador(props) {
         _classCallCheck(this, Sorteador);
 
-        return _possibleConstructorReturn(this, (Sorteador.__proto__ || Object.getPrototypeOf(Sorteador)).apply(this, arguments));
+        var _this = _possibleConstructorReturn(this, (Sorteador.__proto__ || Object.getPrototypeOf(Sorteador)).call(this, props));
+
+        _this.handleDelete = _this.handleDelete.bind(_this);
+        _this.handleSort = _this.handleSort.bind(_this);
+        _this.state = {
+            options: ['opcion 1', 'opcion 2', 'opcion 3']
+        };
+        return _this;
     }
 
     _createClass(Sorteador, [{
+        key: 'handleDelete',
+        value: function handleDelete() {
+            this.setState(function () {
+                return {
+                    options: []
+                };
+            });
+        }
+    }, {
+        key: 'handleSort',
+        value: function handleSort() {
+            var randNum = Math.floor(Math.random() * this.state.options.length);
+            var option = this.state.options[randNum];
+            alert(option);
+        }
+    }, {
         key: 'render',
         value: function render() {
             var title = 'Sorteador';
             var subtitle = 'Elije un ganador al azar!';
-            var options = ['opcion 1', 'opcion 2', 'opcion 3'];
 
             return React.createElement(
                 'div',
                 null,
                 React.createElement(Header, { title: title, subtitle: subtitle }),
-                React.createElement(Action, null),
-                React.createElement(Options, { options: options }),
+                React.createElement(Action, { hasOption: this.state.options.length > 0, handleSort: this.handleSort }),
+                React.createElement(Options, { options: this.state.options, handleDelete: this.handleDelete }),
                 React.createElement(AddOptions, null)
             );
         }
@@ -80,11 +102,6 @@ var Action = function (_React$Component3) {
     }
 
     _createClass(Action, [{
-        key: 'handleSort',
-        value: function handleSort() {
-            console.log('sorteando');
-        }
-    }, {
         key: 'render',
         value: function render() {
             return React.createElement(
@@ -92,7 +109,7 @@ var Action = function (_React$Component3) {
                 null,
                 React.createElement(
                     'button',
-                    { onClick: this.handleSort },
+                    { onClick: this.props.handleSort, disabled: !this.props.hasOption },
                     'Sortear!'
                 )
             );
@@ -112,11 +129,6 @@ var Options = function (_React$Component4) {
     }
 
     _createClass(Options, [{
-        key: 'handleDel',
-        value: function handleDel() {
-            console.log('borrando');
-        }
-    }, {
         key: 'render',
         value: function render() {
             return React.createElement(
@@ -124,7 +136,7 @@ var Options = function (_React$Component4) {
                 null,
                 React.createElement(
                     'button',
-                    { onClick: this.handleDel },
+                    { onClick: this.props.handleDelete },
                     'Borrar Todos'
                 ),
                 this.props.options.map(function (op) {
