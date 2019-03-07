@@ -1,4 +1,5 @@
 
+<<<<<<< HEAD
 class Sorteador extends React.Component {
     constructor(props){
         super(props);
@@ -47,11 +48,30 @@ class Header extends React.Component {
             <div>
                 <h1>{this.props.title}</h1>
                 <h2>{this.props.subtitle}</h2>
+=======
+class Header extends React.Component {
+    render(){
+        return (
+            <div>
+                <h1>Sorteador</h1>
+                <h2>Deja el azar en manos de la inteligencia artificial</h2>
             </div>
         );
     }
 }
 
+class Action extends React.Component{
+    render(){
+        return(
+            <div>
+                <button>Sortear!</button>
+>>>>>>> ad90da89d95bb323996f64b7ba719df3e4dd4dcd
+            </div>
+        );
+    }
+}
+
+<<<<<<< HEAD
 class Action extends React.Component{
    
     render(){
@@ -70,11 +90,19 @@ class Options extends React.Component{
             <div>
                 <button onClick={this.props.handleDelete}>Borrar Todos</button>
                 {this.props.options.map(op => <Option key={op} option={op}/>)}
+=======
+class Options extends React.Component{
+    render(){
+        return(
+            <div>
+                
+>>>>>>> ad90da89d95bb323996f64b7ba719df3e4dd4dcd
             </div>
         );
     }
 }
 
+<<<<<<< HEAD
 class Option extends React.Component{
     render(){
         return(
@@ -105,12 +133,30 @@ class AddOptions extends React.Component{
                     <input type='text' name='option'></input>
                     <button type='submit'>Agregar</button>
                 </form>
+=======
+class AddOptions extends React.Component{
+    render(){
+        return(
+            <div>
+
+>>>>>>> ad90da89d95bb323996f64b7ba719df3e4dd4dcd
             </div>
         );
     }
 }
 
 
+<<<<<<< HEAD
 
 
 ReactDOM.render(<Sorteador/>, document.getElementById('app'));
+=======
+const jsx = (
+    <div>
+        <Header />
+        <Action />
+    </div>
+);
+
+ReactDOM.render(jsx, document.getElementById('app'));
+>>>>>>> ad90da89d95bb323996f64b7ba719df3e4dd4dcd
