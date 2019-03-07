@@ -54,52 +54,44 @@ class Sorteador extends React.Component {
     }
 }
 
-
-class Header extends React.Component {
-    render(){
-        return (
-            <div>
-                <h1>{this.props.title}</h1>
-                <h2>{this.props.subtitle}</h2>
-            </div>
-        );
-    }
+const Header = (props) =>{
+    return (
+        <div>
+            <h1>{props.title}</h1>
+            <h2>{props.subtitle}</h2>
+        </div>
+    );
 }
 
-class Action extends React.Component{
-   
-    render(){
-        return(
-            <div>
-                <button onClick={this.props.handleSort} disabled = {!this.props.hasOption}>Sortear!</button>
-                <button onClick={this.props.handleDelete}>Borrar Todos</button>
-            </div>
-        );
-    }
+
+const Action = (props)=>{
+    return(
+        <div>
+            <button onClick={props.handleSort} disabled = {!props.hasOption}>Sortear!</button>
+            <button onClick={props.handleDelete}>Borrar Todos</button>
+        </div>
+    );
 }
 
-class Options extends React.Component{
-  
-    render(){
-        return(
-            <div>
-                {this.props.options.map(op => <Option key={op} option={op}/>)}
-            </div>
-        );
-    }
+
+const Options = (props)=>{
+    return(
+        <div>
+            {props.options.map(op => <Option key={op} option={op}/>)}
+        </div>
+    );
 }
 
-class Option extends React.Component{
-    render(){
-        return(
-            <div>
-                <li>
-                    {this.props.option}
-                </li>  
-            </div>
-        )
-    }
+const Option = (props)=>{
+    return(
+        <div>
+            <li>
+                {props.option}
+            </li>  
+        </div>
+    )
 }
+
 
 class AddOptions extends React.Component{
     constructor(props){
