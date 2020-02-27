@@ -1,5 +1,5 @@
 'use strict';
-//asdf
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -17,8 +17,10 @@ var Sorteador = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (Sorteador.__proto__ || Object.getPrototypeOf(Sorteador)).call(this, props));
 
         _this.handleDelete = _this.handleDelete.bind(_this);
+        _this.handleDeleteOption = _this.handleDeleteOption.bind(_this);
         _this.handleSort = _this.handleSort.bind(_this);
         _this.handleAddOption = _this.handleAddOption.bind(_this);
+
         _this.state = {
             options: []
         };
@@ -29,10 +31,13 @@ var Sorteador = function (_React$Component) {
         key: 'handleDelete',
         value: function handleDelete() {
             this.setState(function () {
-                return {
-                    options: []
-                };
+                return { options: [] };
             });
+        }
+    }, {
+        key: 'handleDeleteOption',
+        value: function handleDeleteOption(option) {
+            console.log("deleted", option);
         }
     }, {
         key: 'handleSort',
@@ -51,9 +56,7 @@ var Sorteador = function (_React$Component) {
             }
 
             this.setState(function (prevState) {
-                return {
-                    options: prevState.options.concat(option)
-                };
+                return { options: prevState.options.concat(option) };
             });
         }
     }, {
@@ -66,7 +69,7 @@ var Sorteador = function (_React$Component) {
                 'div',
                 null,
                 React.createElement(Header, { title: title, subtitle: subtitle }),
-                React.createElement(Options, { options: this.state.options }),
+                React.createElement(Options, { options: this.state.options, handleDeleteOption: this.handleDeleteOption }),
                 React.createElement(AddOptions, { handleAddOption: this.handleAddOption }),
                 React.createElement(Action, { hasOption: this.state.options.length > 0, handleSort: this.handleSort, handleDelete: this.handleDelete })
             );
@@ -115,7 +118,11 @@ var Options = function Options(props) {
         'div',
         null,
         props.options.map(function (op) {
-            return React.createElement(Option, { key: op, option: op });
+            return React.createElement(Option, {
+                key: op,
+                option: op,
+                handleDeleteOption: props.handleDeleteOption
+            });
         })
     );
 };
@@ -127,7 +134,16 @@ var Option = function Option(props) {
         React.createElement(
             'li',
             null,
-            props.option
+            props.option,
+            React.createElement(
+                'button',
+                {
+                    onClick: function onClick(e) {
+                        props.handleDeleteOption(props.option);
+                    }
+                },
+                'Borrar'
+            )
         )
     );
 };
