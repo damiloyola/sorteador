@@ -3,8 +3,10 @@ class Sorteador extends React.Component {
     constructor(props){
         super(props);
         this.handleDelete = this.handleDelete.bind(this);
+        this.handleDeleteOption = this.handleDeleteOption.bind(this);
         this.handleSort = this.handleSort.bind(this);
         this.handleAddOption = this.handleAddOption.bind(this);
+
         this.state = {
             options : []
         }
@@ -12,6 +14,10 @@ class Sorteador extends React.Component {
 
     handleDelete(){
         this.setState(()=>({options:[]}));
+    }
+    
+    handleDeleteOption(option){
+        console.log("deleted", option);
     }
 
     handleSort(){
@@ -37,7 +43,7 @@ class Sorteador extends React.Component {
         return(
             <div>
             <Header title={title} subtitle ={subtitle}/>
-            <Options options = {this.state.options} />
+            <Options options = {this.state.options} handleDeleteOption = {this.handleDeleteOption}/>
             <AddOptions handleAddOption = {this.handleAddOption}/>
             <Action hasOption= {this.state.options.length > 0} handleSort ={this.handleSort} handleDelete = {this.handleDelete}/>
             </div>
@@ -69,7 +75,13 @@ const Action = (props)=>{
 const Options = (props)=>{
     return(
         <div>
-            {props.options.map(op => <Option key={op} option={op}/>)}
+            {props.options.map((op) => (
+                 <Option
+                     key={op} 
+                     option={op}
+                     handleDeleteOption = {props.handleDeleteOption}
+                />))}
+            
         </div>
     );
 }
@@ -79,6 +91,13 @@ const Option = (props)=>{
         <div>
             <li>
                 {props.option}
+                <button 
+                    onClick={(e)=>{
+                        props.handleDeleteOption(props.option);
+                    }}
+                >
+                   Borrar
+                </button>
             </li>  
         </div>
     )
