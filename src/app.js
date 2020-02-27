@@ -16,8 +16,10 @@ class Sorteador extends React.Component {
         this.setState(()=>({options:[]}));
     }
     
-    handleDeleteOption(option){
-        console.log("deleted", option);
+    handleDeleteOption(optionToRemove){
+        this.setState((prevState)=>({
+            options: prevState.options.filter((option)=>option !== optionToRemove)
+        }))
     }
 
     handleSort(){
