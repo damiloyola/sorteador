@@ -11,11 +11,7 @@ class Sorteador extends React.Component {
     }
 
     handleDelete(){
-        this.setState(()=>{
-            return {
-                options:[]
-            }
-        })
+        this.setState(()=>({options:[]}));
     }
 
     handleSort(){
@@ -31,11 +27,7 @@ class Sorteador extends React.Component {
             return 'Esa opcion ya existe';
         }
 
-        this.setState((prevState)=>{
-            return({
-                options: prevState.options.concat(option)
-            })
-        })
+        this.setState((prevState)=>({options: prevState.options.concat(option)}));
     }
     render(){
         const title = 'Sorteador';
@@ -107,9 +99,7 @@ class AddOptions extends React.Component{
         const option = e.target.elements.option.value.trim();
         e.target.elements.option.value = '';
         const error = this.props.handleAddOption(option);
-        this.setState(()=>{
-            return{error: error}
-        })
+        this.setState(()=>({error:error}));
 
     }
 
