@@ -28,6 +28,27 @@ var Sorteador = function (_React$Component) {
     }
 
     _createClass(Sorteador, [{
+        key: 'componentDidUpdate',
+        value: function componentDidUpdate(prevProps, prevState) {
+            if (prevState.options.length !== this.state.options.length) {
+                var json = JSON.stringify(this.state.options);
+                localStorage.setItem('options', json);
+            }
+        }
+    }, {
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            try {
+                var json = localStorage.getItem('options');
+                var options = JSON.parse(json);
+                if (options) {
+                    this.setState(function () {
+                        return { options: options };
+                    });
+                }
+            } catch (e) {}
+        }
+    }, {
         key: 'handleDelete',
         value: function handleDelete() {
             this.setState(function () {
@@ -75,9 +96,9 @@ var Sorteador = function (_React$Component) {
                 'div',
                 null,
                 React.createElement(Header, { title: title, subtitle: subtitle }),
-                React.createElement(Options, { options: this.state.options, handleDeleteOption: this.handleDeleteOption }),
+                React.createElement(Options, { options: this.state.options, handleDelete: this.handleDelete, handleDeleteOption: this.handleDeleteOption }),
                 React.createElement(AddOptions, { handleAddOption: this.handleAddOption }),
-                React.createElement(Action, { hasOption: this.state.options.length > 0, handleSort: this.handleSort, handleDelete: this.handleDelete })
+                React.createElement(Action, { hasOption: this.state.options.length > 0, handleSort: this.handleSort })
             );
         }
     }]);
@@ -110,11 +131,6 @@ var Action = function Action(props) {
             'button',
             { onClick: props.handleSort, disabled: !props.hasOption },
             'Sortear!'
-        ),
-        React.createElement(
-            'button',
-            { onClick: props.handleDelete },
-            'Borrar Todos'
         )
     );
 };
@@ -123,6 +139,16 @@ var Options = function Options(props) {
     return React.createElement(
         'div',
         null,
+        React.createElement(
+            'button',
+            { onClick: props.handleDelete },
+            'Borrar Todos'
+        ),
+        props.options.length === 0 && React.createElement(
+            'p',
+            null,
+            'Agrega una opcion para comenzar'
+        ),
         props.options.map(function (op) {
             return React.createElement(Option, {
                 key: op,
