@@ -1,5 +1,10 @@
+import React from 'react';
+import AddOptions from './AddOptions';
+import Options from './Options';
+import Header from './Header';
+import Action from './Action';
 
-class Sorteador extends React.Component {
+export default class Sorteador extends React.Component {
     constructor(props){
         super(props);
         this.handleDelete = this.handleDelete.bind(this);
@@ -29,12 +34,8 @@ class Sorteador extends React.Component {
                 this.setState(()=>({ options }));
             }   
         }catch(e){
-
-        }
-     
-        
+        }  
     }
-
 
     handleDelete(){
         this.setState(()=>({options:[]}));
@@ -77,93 +78,3 @@ class Sorteador extends React.Component {
         )
     }
 }
-
-const Header = (props) =>{
-    return (
-        <div>
-            <h1>{props.title}</h1>
-            <h2>{props.subtitle}</h2>
-        </div>
-    );
-}
-
-
-const Action = (props)=>{
-    return(
-        <div>
-            <button onClick={props.handleSort} disabled = {!props.hasOption}>Sortear!</button>
-            
-        </div>
-    );
-}
-
-
-const Options = (props)=>{
-    return(
-        <div>
-            <button onClick={props.handleDelete}>Borrar Todos</button>
-            {props.options.length === 0 && <p>Agrega una opcion para comenzar</p>}
-            {props.options.map((op) => (
-                 <Option
-                     key={op} 
-                     option={op}
-                     handleDeleteOption = {props.handleDeleteOption}
-                />))}
-            
-        </div>
-    );
-}
-
-const Option = (props)=>{
-    return(
-        <div>
-            <li>
-                {props.option}
-                <button 
-                    onClick={(e)=>{
-                        props.handleDeleteOption(props.option);
-                    }}
-                >
-                   Borrar
-                </button>
-            </li>  
-        </div>
-    )
-}
-
-
-class AddOptions extends React.Component{
-    constructor(props){
-        super(props);
-        this.handleAdd = this.handleAdd.bind(this);
-        this.state = {
-            error: undefined
-        }
-    }
-    handleAdd(e){
-        e.preventDefault();
-
-        const option = e.target.elements.option.value.trim();
-        e.target.elements.option.value = '';
-        const error = this.props.handleAddOption(option);
-        this.setState(()=>({error:error}));
-
-    }
-
-    render(){
-        return(
-            <div>
-                {this.state.error && <p>{this.state.error}</p>}
-                <form onSubmit={this.handleAdd}>
-                    <input type='text' name='option'></input>
-                    <button type='submit'>Agregar</button>
-                </form>
-            </div>
-        );
-    }
-}
-
-
-
-
-ReactDOM.render(<Sorteador/>, document.getElementById('app'));
