@@ -1,5 +1,2 @@
-$main-color : blue;
-
-*{
-    color:$main-color;
-}
+@import './base/base';
+@import './components/header';
