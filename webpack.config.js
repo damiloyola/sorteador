@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-    entry: './src/app.js',
+    entry: {app: ['./src/app.js']},
     output:{
         path: path.join(__dirname,'public'),
         filename: 'bundle.js'
@@ -12,5 +12,9 @@ module.exports = {
             test: /\.js$/, //archivos que terminan en .js
             exclude:/node_modules/
         }]
+    },
+    devtool:'cheap-module-eval-source-map',
+    devServer:{
+        contentBase:path.join(__dirname,'public')
     }
 };

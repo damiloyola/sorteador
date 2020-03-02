@@ -7,16 +7,20 @@
     "babel-preset-react": "6.24.1",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
-    "webpack": "3.1.0"
+    "webpack": "4.5.0",
+    "webpack-dev-server": "^3.10.3"
   },
   "scripts": {
-    "build": "webpack --watch",
-    "build-babel": "babel src/app.js --out-file=public/scripts/app.js --presets=env,react --watch"
+    "build": "webpack",
+    "server": "webpack-dev-server"
   },
   "name": "sorteador",
   "version": "1.0.0",
   "main": "index.js",
   "repository": "https://github.com/damiloyola/sorteador.git",
   "author": "Damian <alt132.dl@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "webpack-cli": "^3.3.11"
+  }
 }
