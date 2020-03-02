@@ -5,16 +5,35 @@ import Header from './Header';
 import Action from './Action';
 
 export default class Sorteador extends React.Component {
-    constructor(props){
-        super(props);
-        this.handleDelete = this.handleDelete.bind(this);
-        this.handleDeleteOption = this.handleDeleteOption.bind(this);
-        this.handleSort = this.handleSort.bind(this);
-        this.handleAddOption = this.handleAddOption.bind(this);
 
-        this.state = {
-            options : []
-        };
+    state ={
+        options:[]
+    };
+    
+    handleDelete = () => {
+        this.setState(()=>({options:[]}));
+    };
+    
+    handleDeleteOption = (optionToRemove) => {
+        this.setState((prevState)=>({
+            options: prevState.options.filter((option)=>option !== optionToRemove)
+        }))
+    }
+
+    handleSort = () => {
+     const randNum = Math.floor(Math.random()* this.state.options.length);
+     const option = this.state.options[randNum];
+     alert(option);
+    }
+
+    handleAddOption = (option) => {
+        if(!option){
+            return 'Ingrese una opcion valida';
+        }else if(this.state.options.indexOf(option) > -1){
+            return 'Esa opcion ya existe';
+        }
+
+        this.setState((prevState)=>({options: prevState.options.concat(option)}));
     }
 
 
@@ -37,31 +56,7 @@ export default class Sorteador extends React.Component {
         }  
     }
 
-    handleDelete(){
-        this.setState(()=>({options:[]}));
-    }
-    
-    handleDeleteOption(optionToRemove){
-        this.setState((prevState)=>({
-            options: prevState.options.filter((option)=>option !== optionToRemove)
-        }))
-    }
 
-    handleSort(){
-     const randNum = Math.floor(Math.random()* this.state.options.length);
-     const option = this.state.options[randNum];
-     alert(option);
-    }
-
-    handleAddOption(option){
-        if(!option){
-            return 'Ingrese una opcion valida';
-        }else if(this.state.options.indexOf(option) > -1){
-            return 'Esa opcion ya existe';
-        }
-
-        this.setState((prevState)=>({options: prevState.options.concat(option)}));
-    }
     render(){
         const title = 'Sorteador';
         const subtitle = 'Elije un ganador al azar!';
