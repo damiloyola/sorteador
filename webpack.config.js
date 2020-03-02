@@ -11,6 +11,14 @@ module.exports = {
             loader:'babel-loader',
             test: /\.js$/, //archivos que terminan en .js
             exclude:/node_modules/
+        },
+        {
+            use:[ //con use se pueden usar varios loaders
+                'style-loader',
+                'css-loader',
+                'sass-loader'
+            ],
+            test: /\.scss$/
         }]
     },
     devtool:'cheap-module-eval-source-map',
