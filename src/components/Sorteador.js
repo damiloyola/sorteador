@@ -3,13 +3,19 @@ import AddOptions from './AddOptions';
 import Options from './Options';
 import Header from './Header';
 import Action from './Action';
+import OptionModal from './OptionModal';
 
 export default class Sorteador extends React.Component {
 
     state ={
-        options:[]
+        options:[],
+        selectedOption: undefined
     };
     
+    handleClearSelected = () =>{
+        this.setState(()=>({selectedOption:undefined}));
+    }
+
     handleDelete = () => {
         this.setState(()=>({options:[]}));
     };
@@ -23,7 +29,8 @@ export default class Sorteador extends React.Component {
     handleSort = () => {
      const randNum = Math.floor(Math.random()* this.state.options.length);
      const option = this.state.options[randNum];
-     alert(option);
+     this.setState(()=> ({selectedOption : option})) ;
+     
     }
 
     handleAddOption = (option) => {
@@ -68,6 +75,8 @@ export default class Sorteador extends React.Component {
             <Options options = {this.state.options} handleDelete = {this.handleDelete} handleDeleteOption = {this.handleDeleteOption}/>
             <AddOptions handleAddOption = {this.handleAddOption}/>
             <Action hasOption= {this.state.options.length > 0} handleSort ={this.handleSort} />
+            <OptionModal selectedOption = {this.state.selectedOption} handleClearSelected = {this.handleClearSelected} />
+           
             </div>
             
         )

@@ -1,7 +1,6 @@
 import React from 'react';
 
-const Option = (props)=>{
-    return(
+const Option = (props)=>(
         <div>
             <li>
                 {props.option}
@@ -15,6 +14,6 @@ const Option = (props)=>{
             </li>  
         </div>
     )
-}
+
 
 export default Option;
