@@ -8,7 +8,7 @@ const OptionModal = (props) => (
         isOpen = {!!props.selectedOption} // al ponerle !! va a ser false cuando este undefined y true cuando tenga string
         contentLabel = "Opcion Ganadora" //opcion para screenreaders
         onRequestClose = {props.handleClearSelected} //para que se cierre cuando se apriete esc o click afuera del modal
-        closeTimeoutMS= {400}
+        closeTimeoutMS= {200}
         className='modal'
     >
         <h3 className="modal__title">Ganador</h3>
