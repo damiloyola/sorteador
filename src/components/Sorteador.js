@@ -73,8 +73,10 @@ export default class Sorteador extends React.Component {
             <div>
             <Header title={title} subtitle ={subtitle}/>
             <div className="container">
-                <Options options = {this.state.options} handleDelete = {this.handleDelete} handleDeleteOption = {this.handleDeleteOption}/>
-                <AddOptions handleAddOption = {this.handleAddOption}/>
+                <div className="widget">
+                    <Options options = {this.state.options} handleDelete = {this.handleDelete} handleDeleteOption = {this.handleDeleteOption}/>
+                    <AddOptions handleAddOption = {this.handleAddOption}/>
+                </div>
                 <Action hasOption= {this.state.options.length > 0} handleSort ={this.handleSort} />
             </div>
             <OptionModal selectedOption = {this.state.selectedOption} handleClearSelected = {this.handleClearSelected} />
